@@ -1,4 +1,4 @@
-FROM php:8.1-apache
+FROM php:8.2-apache
 
 RUN apt-get update && apt-get install -y \
     libzip-dev libpq-dev zip unzip git curl \
@@ -10,10 +10,9 @@ WORKDIR /var/www/html
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
+RUN composer update --no-dev --optimize-autoloader --ignore-platform-reqs
 
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-
+RUN chown -R www-data:www-data storage bootstrap/cache
 RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
 
