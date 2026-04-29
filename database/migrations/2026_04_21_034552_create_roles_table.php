@@ -1,0 +1,26 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+{
+    Schema::create('roles', function (Blueprint $table) {
+        $table->id('id_rol'); // Así se llamará como en tu esquema
+        $table->string('nombre_rol');
+        $table->text('descripcion')->nullable(); // Por si quieres añadir una descripción después
+        $table->timestamps();
+    });
+}
+
+public function down(): void
+{
+    Schema::dropIfExists('roles');
+}
+};
